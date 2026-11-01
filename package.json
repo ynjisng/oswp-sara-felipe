@@ -5,7 +5,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npx prisma generate && npm run build:ci",
+    "build": "npx prisma generate && npm run db:migrate:deploy && npm run build:ci",
     "build:ci": "BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:-ci-build-only-secret-not-for-runtime} SKIP_ENV_VALIDATION=true NODE_ENV=production next build",
     "build:analyze": "SKIP_ENV_VALIDATION=true NODE_ENV=production next build --analyze",
     "build:turbo": "NODE_OPTIONS='--trace-uncaught' SKIP_ENV_VALIDATION=true NODE_ENV=production next build --turbopack",
