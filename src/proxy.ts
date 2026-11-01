@@ -111,7 +111,10 @@ export async function proxy(req: NextRequest) {
   }
 
   // Check for session token using Better Auth's utility (handles cookie prefixes)
-  const sessionToken = getSessionCookie(req)
+  const sessionToken = 
+    getSessionCookie(req) ?? 
+    req.cookies.get('__Secure-better-auth.session_token')?.value ?? 
+    req.cookies.get('better-auth.session_token')?.value
 
   // Redirect to sign in for unauthenticated access to protected routes
   if (!sessionToken) {
