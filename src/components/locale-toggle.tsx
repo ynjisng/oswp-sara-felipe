@@ -7,7 +7,7 @@ export function LocaleToggle() {
   const locale = useLocale()
   const router = useRouter()
 
-  const switchTo = locale === 'en' ? 'es' : 'en'
+  const switchTo = locale === 'en' ? 'pt-br' : locale === 'pt-br' ? 'es' : 'en'
 
   const handleSwitch = async () => {
     await fetch('/api/locale', {
@@ -23,21 +23,13 @@ export function LocaleToggle() {
       type='button'
       onClick={handleSwitch}
       className='font-mono text-muted-foreground text-xs uppercase tracking-[0.22em] hover:text-foreground'
-      aria-label={`Switch to ${switchTo === 'en' ? 'English' : 'Spanish'}`}
+      aria-label={`Switch to ${switchTo === 'en' ? 'English' : switchTo === 'es' ? 'Spanish' : 'Portuguese'}`}
     >
-      {locale === 'en' ? (
-        <>
-          <span className='text-foreground'>EN</span>
-          <span className='mx-1'>|</span>
-          <span>ES</span>
-        </>
-      ) : (
-        <>
-          <span>EN</span>
-          <span className='mx-1'>|</span>
-          <span className='text-foreground'>ES</span>
-        </>
-      )}
+      <span className={locale === 'en' ? 'text-foreground' : undefined}>EN</span>
+      <span className='mx-1'>|</span>
+      <span className={locale === 'pt-br' ? 'text-foreground' : undefined}>PT-BR</span>
+      <span className='mx-1'>|</span>
+      <span className={locale === 'es' ? 'text-foreground' : undefined}>ES</span>
     </button>
   )
 }

@@ -22,9 +22,12 @@ export const SPANISH_COUNTRY_CODES = new Set([
   'GQ',
 ])
 
-export type Locale = 'en' | 'es'
+export type Locale = 'en' | 'es' | 'pt-br'
 
 export function getLocaleFromCountry(countryCode: string | null | undefined): Locale {
-  if (!countryCode) return 'en'
-  return SPANISH_COUNTRY_CODES.has(countryCode.toUpperCase()) ? 'es' : 'en'
+  if (!countryCode) return 'pt-br'
+
+  const normalizedCountryCode = countryCode.toUpperCase()
+  if (normalizedCountryCode === 'BR') return 'pt-br'
+  return SPANISH_COUNTRY_CODES.has(normalizedCountryCode) ? 'es' : 'en'
 }
