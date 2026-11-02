@@ -4,8 +4,15 @@ import type { Locale } from '~/lib/locale/locale-detection'
 
 export default getRequestConfig(async () => {
   const headersList = await headers()
+  
   const raw = headersList.get('X-Locale')
-  const locale: Locale = raw === 'es' ? 'es' : 'en'
+  
+  const supportedLocales = ['en', 'es', 'pt-br']
+  
+  const locale = (
+    raw && supportedLocales.includes(raw) ? raw : 'pt-br'
+  ) as Locale
+
   return {
     locale,
     messages: (await import(`./messages/${locale}.json`)).default,
