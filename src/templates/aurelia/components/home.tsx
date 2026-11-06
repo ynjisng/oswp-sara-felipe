@@ -8,6 +8,28 @@ import type { TemplateSurfaceProps } from '~/templates/types'
 
 const headingFont = 'font-[family-name:var(--tpl-heading-font)]'
 
+/**
+ * Documentação: Converte uma string de data para o formato por extenso do Brasil.
+ * @param dataSujestiva A string de data que vem do banco (weddingData.date)
+ */
+function formatarDataBrasil(dataSujestiva: string | undefined | null) {
+  // Se a variável estiver vazia ou nula, retorna a mensagem padrão
+  if (!dataSujestiva) return 'DATA A SER ANUNCIADA';
+  
+  // Instancia um objeto Date a partir da string fornecida pelo Prisma/OSWP
+  const dataObj = new Date(dataSujestiva);
+
+  // Validação de segurança: se a data for inválida, devolve a string original
+  if (isNaN(dataObj.getTime())) return dataSujestiva;
+
+  // Formata para o padrão brasileiro: "06 de novembro de 2026"
+  return dataObj.toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+  });
+}
+
 export function AureliaHome({ weddingData, path, introText }: Readonly<TemplateSurfaceProps>) {
   const { website } = weddingData
 
@@ -34,7 +56,7 @@ export function AureliaHome({ weddingData, path, introText }: Readonly<TemplateS
         <div className='flex items-center gap-4 text-muted-foreground'>
           <span className='h-px w-12 bg-border' />
           <span className='text-sm uppercase tracking-[0.3em]'>
-            {weddingData.date?.standardFormat ?? 'Date To Be Announced'}
+            {formatarDataBrasil(weddingData.date?.numberFormat || weddingData.date?.standardFormat)}
           </span>
           <span className='h-px w-12 bg-border' />
         </div>
@@ -49,7 +71,7 @@ export function AureliaHome({ weddingData, path, introText }: Readonly<TemplateS
             href={`${path}/rsvp`}
             className='mt-2 rounded-full bg-primary px-9 py-3 text-[0.72rem] text-primary-foreground uppercase tracking-[0.3em] shadow-sm transition-colors hover:bg-accent'
           >
-            RSVP
+            Confirmar Presença
           </Link>
         )}
       </section>
