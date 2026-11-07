@@ -43,7 +43,7 @@ export function AureliaHome({ weddingData, path, introText }: Readonly<TemplateS
       <section className='relative flex w-full max-w-3xl flex-col items-center gap-8 pt-24 text-center'>
         <div
           aria-hidden
-          className='absolute top-10 left-1/2 -z-10 h-72 w-72 -translate-x-1/2 rounded-full bg-gradient-to-br from-primary/15 to-accent/15 blur-3xl'
+          className='absolute top-10 left-1/2 -z-10 h-72 w-72 -translate-x-1/2 rounded-full bg-gradient-to-br from-[oklch(var(--tpl-terracotta)/0.2)] to-[oklch(var(--tpl-lavender)/0.2)] blur-3xl'
         />
         <p className='text-[0.7rem] text-accent uppercase tracking-[0.45em]'>
           We're getting married
