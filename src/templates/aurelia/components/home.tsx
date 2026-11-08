@@ -5,6 +5,8 @@ import { AureliaCoupleGallery, AureliaHeaderImage } from '~/templates/aurelia/co
 import { AureliaNavbar } from '~/templates/aurelia/components/navbar'
 import { AureliaSections } from '~/templates/aurelia/components/sections'
 import type { TemplateSurfaceProps } from '~/templates/types'
+import { eventDateRange } from '~/templates/voyage/site'
+
 
 const headingFont = 'font-[family-name:var(--tpl-heading-font)]'
 
@@ -32,7 +34,8 @@ function formatarDataBrasil(dataSujestiva: string | undefined | null) {
 
 export function AureliaHome({ weddingData, path, introText }: Readonly<TemplateSurfaceProps>) {
   const { website } = weddingData
-
+  const dateLabel = eventDateRange(weddingData.events) ?? weddingData.date?.standardFormat
+  
   return (
     <main className='flex flex-col items-center gap-24 px-6 pb-28'>
       {website.headerImageUrl ? (
@@ -56,7 +59,7 @@ export function AureliaHome({ weddingData, path, introText }: Readonly<TemplateS
         <div className='flex items-center gap-4 text-muted-foreground'>
           <span className='h-px w-12 bg-border' />
           <span className='text-sm uppercase tracking-[0.3em]'>
-            {formatarDataBrasil(weddingData.date?.numberFormat || weddingData.date?.standardFormat)}
+            {formatarDataBrasil(dateLabel)}
           </span>
           <span className='h-px w-12 bg-border' />
         </div>
@@ -134,7 +137,7 @@ export function AureliaHome({ weddingData, path, introText }: Readonly<TemplateS
         </p>
         <span className='h-px w-16 bg-border' />
         <p className='text-muted-foreground text-sm tracking-[0.3em]'>
-          {weddingData.date.numberFormat?.toString() ?? 'Date To Be Announced'}
+          {formatarDataBrasil(dateLabel)}
         </p>
       </section>
     </main>
