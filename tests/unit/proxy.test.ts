@@ -124,6 +124,7 @@ describe('proxy', () => {
       joinResponse,
       websiteResponse,
       websiteRsvpResponse,
+      websiteInvitationResponse,
       websiteSaveTheDateResponse,
       websiteSaveTheDateCodeResponse,
       websiteSaveTheDateUpdateResponse,
@@ -141,6 +142,7 @@ describe('proxy', () => {
       proxy(createRequest('/join/sample-token')),
       proxy(createRequest('/w/shrek-and-fiona')),
       proxy(createRequest('/w/shrek-and-fiona/rsvp')),
+      proxy(createRequest('/w/shrek-and-fiona/invitation')),
       proxy(createRequest('/w/shrek-and-fiona/save-the-date')),
       proxy(createRequest('/w/shrek-and-fiona/save-the-date/sf-4f9k2c')),
       proxy(createRequest('/w/shrek-and-fiona/save-the-date/update')),
@@ -159,6 +161,7 @@ describe('proxy', () => {
     expect(joinResponse.headers.get('location')).toBeNull()
     expect(websiteResponse.headers.get('location')).toBeNull()
     expect(websiteRsvpResponse.headers.get('location')).toBeNull()
+    expect(websiteInvitationResponse.headers.get('location')).toBeNull()
     expect(websiteSaveTheDateResponse.headers.get('location')).toBeNull()
     expect(websiteSaveTheDateCodeResponse.headers.get('location')).toBeNull()
     expect(websiteSaveTheDateUpdateResponse.headers.get('location')).toBeNull()
@@ -323,7 +326,7 @@ describe('proxy', () => {
     const nextOptions = mockNext.mock.calls[0]?.[0] as
       | { request?: { headers?: Headers } }
       | undefined
-    expect(nextOptions?.request?.headers?.get('X-Locale')).toBe('en')
+    expect(nextOptions?.request?.headers?.get('X-Locale')).toBe('pt-br')
   })
 
   it('protects non-public routes by default', async () => {

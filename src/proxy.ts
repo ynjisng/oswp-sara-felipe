@@ -54,7 +54,7 @@ const isPublicWebsitePath = (pathname: string): boolean => {
     if (segments.length === 2) return true
     // Each content route still enforces website password/invite access itself.
     if (segments.length === 3 && segments[2] && isVoyagePage(segments[2])) return true
-    if (segments.length === 3 && segments[2] === 'rsvp') return true
+    if (segments.length === 3 && (segments[2] === 'rsvp' || segments[2] === 'invitation')) return true
     if (segments.length === 3 && segments[2] === 'save-the-date') return true
     if (segments.length === 4 && segments[2] === 'save-the-date') return true
     return false
