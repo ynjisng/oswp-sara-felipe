@@ -193,6 +193,7 @@ export function AureliaInvitation({ weddingData, path }: Readonly<TemplateSurfac
               Isso evita erros (crashes) caso você delete a seção no painel administrativo. */}
           {registrySection?.type === 'REGISTRY' && (
             <div className='flex flex-wrap items-center justify-center gap-3'>
+              {registrySection.content.heading}
               {registrySection.content.links.map((link) => (
                 <a
                   key={`${link.label}-${link.url}`}
@@ -217,6 +218,8 @@ export function AureliaInvitation({ weddingData, path }: Readonly<TemplateSurfac
             </Link>
           )} */}
 
+          <div className='my-8 h-px w-full max-w-sm self-center bg-border/80' />
+
           {/* Back link */}
           <Link
             href={path}
@@ -224,8 +227,6 @@ export function AureliaInvitation({ weddingData, path }: Readonly<TemplateSurfac
           >
             Ir ao site do casamento
           </Link>
-
-          <div className='my-8 h-px w-full max-w-sm self-center bg-border/80' />
 
           {/* Footer RSVP Deadline */}
           <p className='mt-8 text-[0.68rem] text-muted-foreground uppercase tracking-[0.25em] sm:text-xs'>
