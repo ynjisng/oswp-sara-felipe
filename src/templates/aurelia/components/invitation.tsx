@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { TemplateSurfaceProps } from '~/templates/types'
+import { Registry } from './sections'
 
 const headingFont = 'font-[family-name:var(--tpl-heading-font)]'
 
@@ -37,6 +38,9 @@ export function AureliaInvitation({ weddingData, path }: Readonly<TemplateSurfac
   // Couple names formatted
   const bride = weddingData.brideFirstName ?? 'Sara'
   const groom = weddingData.groomFirstName ?? 'Felipe'
+  const registrySection = weddingData.sections?.find(
+    (section) => section.type === 'REGISTRY'
+  );
 
   return (
     <main className='flex min-h-screen flex-col items-center justify-center px-4 py-12 sm:px-6 sm:py-20'>
@@ -188,22 +192,32 @@ export function AureliaInvitation({ weddingData, path }: Readonly<TemplateSurfac
             Confirmar Presença até 17.12.2026
           </p>
 
+          <div className='my-8 h-px w-full max-w-sm self-center bg-border/80' />
+
+          {/* Documentação: Verifica se a seção existe no banco de dados e se é do tipo correto.
+              Isso evita erros (crashes) caso você delete a seção no painel administrativo. */}
+          {registrySection?.type === 'REGISTRY' && (
+            <div className='mb-6 flex w-full flex-col items-center'>
+              <Registry content={registrySection.content} />
+            </div>
+          )}
+
           {/* RSVP Button */}
-          {website.isRsvpEnabled && (
+          {/* {website.isRsvpEnabled && (
             <Link
               href={`${path}/rsvp`}
               className='mt-6 rounded-full bg-primary px-10 py-3 font-medium text-[0.72rem] text-primary-foreground uppercase tracking-[0.3em] shadow-sm transition-colors hover:bg-accent'
             >
               Confirmar Presença
             </Link>
-          )}
+          )} */}
 
           {/* Back link */}
           <Link
             href={path}
             className='mt-4 text-[0.68rem] text-muted-foreground uppercase tracking-[0.25em] underline-offset-4 transition-colors hover:text-primary hover:underline'
           >
-            Voltar ao site
+            Ir ao site do casamento
           </Link>
         </div>
       </div>

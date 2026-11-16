@@ -298,7 +298,7 @@ function Faq({ content }: { content: FaqSectionContent }) {
   )
 }
 
-function Registry({ content }: { content: RegistrySectionContent }) {
+export function Registry({ content }: { content: RegistrySectionContent }) {
   return (
     <SectionShell id='registry' eyebrow='With Gratitude' heading={content.heading}>
       <ProseBlock text={content.body} />
