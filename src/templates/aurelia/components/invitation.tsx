@@ -187,18 +187,23 @@ export function AureliaInvitation({ weddingData, path }: Readonly<TemplateSurfac
             </div>
           </div>
 
-          {/* Footer RSVP Deadline */}
-          <p className='mt-8 text-[0.68rem] text-muted-foreground uppercase tracking-[0.25em] sm:text-xs'>
-            Confirmar Presença até 17.12.2026
-          </p>
-
           <div className='my-8 h-px w-full max-w-sm self-center bg-border/80' />
 
           {/* Documentação: Verifica se a seção existe no banco de dados e se é do tipo correto.
               Isso evita erros (crashes) caso você delete a seção no painel administrativo. */}
           {registrySection?.type === 'REGISTRY' && (
-            <div className='mb-6 flex w-full flex-col items-center'>
-              <Registry content={registrySection.content} />
+            <div className='flex flex-wrap items-center justify-center gap-3'>
+              {registrySection.content.links.map((link) => (
+                <a
+                  key={`${link.label}-${link.url}`}
+                  href={link.url}
+                  target='_blank'
+                  rel='noreferrer'
+                  className='rounded-full border border-primary px-6 py-2.5 text-[0.72rem] text-primary uppercase tracking-[0.25em] transition-colors hover:bg-primary hover:text-primary-foreground'
+                >
+                  {link.label}
+                </a>
+              ))}
             </div>
           )}
 
@@ -219,6 +224,13 @@ export function AureliaInvitation({ weddingData, path }: Readonly<TemplateSurfac
           >
             Ir ao site do casamento
           </Link>
+
+          <div className='my-8 h-px w-full max-w-sm self-center bg-border/80' />
+
+          {/* Footer RSVP Deadline */}
+          <p className='mt-8 text-[0.68rem] text-muted-foreground uppercase tracking-[0.25em] sm:text-xs'>
+            Confirmar Presença até 17.12.2026
+          </p>
         </div>
       </div>
     </main>
